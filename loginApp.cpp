@@ -7,10 +7,10 @@
 // Teaching Assistant: Dr.Mohamed Al Ramly
 // Purpose:..........
 
-#include "loginApp.h"
-#include "loginApp.cpp"
+#include "loginAppFunc.h"
+#include "loginAppFunc.cpp"
 
-void newuser();
+
 
 int main()
 {

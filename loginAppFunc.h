@@ -11,8 +11,10 @@
 #include <vector>
 #include <fstream>
 
+
 using namespace std;
 
+void newuser();
 int CHECK_USRER_AND_PASS(string id ,string pass,vector<string>n_a,vector<string>i_d,vector<string>p_s,int len_c);
 char displayMenu();
 void saveToFile(string data);

@@ -1,4 +1,4 @@
-#include "loginApp.h"
+#include "loginAppFunc.h"
 
 
 void saveToFile(string data)
@@ -225,7 +225,7 @@ void login(vector<string>n_a,vector<string>i_d,vector<string>p_s,int len,int cou
 
     if (CHECK_USRER_AND_PASS(I_D,PASSWORD,n_a,i_d,p_s,len)){
         int n = CHECK_USRER_AND_PASS(I_D,PASSWORD,n_a,i_d,p_s,len)-1;
-        cout << "Successful login, welcome "<<removeSpaces(n_a[n]);
+        cout << "Successful login, welcome "<<removeSpaces(n_a[n])<<endl;
     }
     else {
         cout << "Failed login. Try again.";
