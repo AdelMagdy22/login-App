@@ -1,4 +1,4 @@
-// FCAI – Programming 1 – 2022 - Assignment 4
+// FCAI â€“ Programming 1 â€“ 2022 - Assignment 4
 // Program Name: login.cpp
 // Last Modification Date: xx/xx/xxxx
 // Author1 and ID and Group: Abdelrahman Tarek Mohamed   20210206
@@ -7,13 +7,7 @@
 // Teaching Assistant: Dr.Mohamed Al Ramly
 // Purpose:..........
 
-
-#include <iostream>
-#include <fstream>
-#include <string.h>
-#include <regex>
 #include "loginAppFuncions.h"
-using namespace std;
 
 void newuser();
 
@@ -56,7 +50,8 @@ bool username_check(string username)
 }
 
 
-void newuser(){
+void newuser()
+{
 
     string x = "User name";
     char username[30];
