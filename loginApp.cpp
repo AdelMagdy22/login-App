@@ -1,34 +1,92 @@
-// FCAI – Programming 1 – 2022 - Assignment 4
-// Program Name: login.cpp
-// Last Modification Date: xx/xx/xxxx
-// Author1 and ID and Group: Abdelrahman Tarek Mohamed   20210206
-// Author2 and ID and Group: Adel Magdy Abd El-Hay       20210190
-// Author3 and ID and Group: Roaa Talat Mohamed          20210138
-// Teaching Assistant: Dr.Mohamed Al Ramly
-// Purpose:..........
+#include "loginApp.h"
 
-#include "loginAppFuncions.h"
+using namespace std;
 
-void newuser();
-
-int main()
+void saveToFile(string data)
 {
-    cout<<"Welcome to our login App.";
-    char choice = ' ';
-    while (choice != '0')
-    {
-        choice = displayMenu();
-        if (choice == '1')
-        {
-            newuser();
-        } else
-        {
-            cout << "Thanks for using our App. \n" << endl;
-            return 0;
-        }
-     }
-     return 0;
+    ofstream login;
+    login.open("login.text", ios::app);
+    login << data;
+    login.close();
 }
+
+char displayMenu()
+{
+    char option;
+    cout << "\nPlease select what you want to do:  " << endl;
+    cout << "1- New User" << endl;
+    cout << "2- Login" << endl;
+    cout << "0- Exit" << endl;
+    cin>>option;
+    return option;
+}
+
+// function to make password hide while the user is typing it.
+string hidePassword(string& password){
+    char pass[250];
+    char ch;
+    int i;
+    for(i = 0;;) {
+        ch = getch();
+        // when user press enter "\n" to save the password
+        if (ch == 13) {
+            // assign last index in array of character
+            pass[i] = '\0';
+            password.assign(pass);
+            cout << endl;
+            return password;
+        }
+        else {
+            if (ch == '\b' and i > 0) { // if user press backspace
+                cout << "\b \b";
+                i -= 1;
+            }
+            else {
+                pass[i] = ch;
+                i += 1;
+                cout << '*';
+            }
+        }
+    }
+}
+
+void getPassword(string& password)
+{
+    cout <<"create a password (Use 8 or more characters using a combination of letters, numbers, and symbols) : ";
+    password = hidePassword(password);
+    while(password.length() < 8 )
+    {
+        cout<<"short password! Please enter again:";
+        password = hidePassword(password);
+    }
+}
+
+void repeatPassword(string password, string& password2)
+{
+    cout << "Re-Enter your password to confirm: ";
+    password2 = hidePassword(password);
+
+    while (password2 != password)
+    {
+        cout <<"Passwords don't match! Please enter again: ";
+        password2 = hidePassword(password);
+    }
+    cout<<"Passwords match! \n";
+}
+void strong_password_check(string& password)
+{
+    const regex pattern("(?=.*[A-Z])(?=.*[\\d@$!%*#?&])(?=.*[A-Z\\d@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}");
+    while(!regex_search(password,pattern))
+    {
+        cout<<"week password! please enter again: ";
+        password = hidePassword(password);
+    }
+    cout<<"strong password! \n";
+
+    //pattern("(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$");
+    //return regex_match(password,pattern);
+}
+
 
 
 bool Email_check(string email)
@@ -144,3 +202,39 @@ void newuser()
 
 }
 
+void login(vector<string>n_a,vector<string>i_d,vector<string>p_s,int len,int count){
+    string PASSWORD, I_D;
+    int n =0;
+    cout << "\nEnter Your Id: ";
+    cin >> I_D;
+    cout << "Enter Your Password: " ;
+    
+    cin >> PASSWORD;
+
+    if (CHECK_USRER_AND_PASS(I_D,PASSWORD,n_a,i_d,p_s,len)){
+        int n = CHECK_USRER_AND_PASS(I_D,PASSWORD,n_a,i_d,p_s,len)-1;
+        cout << n;
+        cout << "Successful login, welcome "<<n_a[n];
+    }
+    else {
+        cout << "Failed login. Try again.";
+        count ++ ;
+
+        if (count == 3){
+            cout << "\nYou are denied access to the system....";
+            exit(0);
+            // Here Put function main menu                              <--------------------------------------------------
+        }
+        login(n_a,i_d,p_s,len,count);
+    }
+}
+
+int CHECK_USRER_AND_PASS(string id ,string pass,vector<string>n_a,vector<string>i_d,vector<string>p_s,int len_c){
+    int h = 0, size =i_d.size();
+    for (int i =0 ; i < size-1; i++){ // -------------------------------------------> for (int i =0 ; i < len_c; i++) ----NOT WORK
+        if (i_d[i] == id && p_s[i] == pass ){
+            h=i+1;
+        }
+    }
+    return h;
+}
