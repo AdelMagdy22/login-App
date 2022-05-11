@@ -1,13 +1,20 @@
 #ifndef LOGINAPPFUNCIONS_H_INCLUDED
 #define LOGINAPPFUNCIONS_H_INCLUDED
 
-#include<string>
+#include <iostream>
+#include <fstream>
+#include <string.h>
+#include <conio.h>
+#include <regex>
+
 
 using namespace std;
 
+char displayMenu();
+
 void saveToFile(string data);
 
-char displayMenu();
+string hidePassword(string& password);
 
 void getPassword(string& password);
 
