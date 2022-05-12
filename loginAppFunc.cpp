@@ -113,16 +113,51 @@ bool username_check(string username)
     return regex_match(username,pattern);
 }
 
+bool ID_check(string ID)
+{
+    const regex pattern("2021[0-9]{4}");
+    return regex_match(ID,pattern);
+}
+
+/*void maching_email(string email )
+{
+    char username[30];
+    string ID;
+    string password = " ";
+    string email = " ";
+    string oldemail = " ";
+    char phone[11];
+
+    login.open("login.text", ios::in );
+    while(!login.eof())
+    {
+        login.getline(username, 30, " ");
+        login.getline(ID, 8, " ");
+        login.getline(password, 30, " ");
+        login.getline(oldemail , 127);
+        if(strcmp(oldemail, email)==0)
+        {
+            cout <<"This email already exists, try another one"<<endl;
+            break;
+        }else
+        {
+            saveToFile(email);
+            saveToFile(" ");
+            x = "Phone";
+        }
+    }
+}
+*/
 
 void newuser()
 {
 
     string x = "User name";
     char username[30];
+    string ID;
     string password = " ";
     string password2 = " ";
-    //char newemail[127];
-    char email[127];
+    string email = " ";
     char phone[11];
 
     while(x == "User name"){
@@ -135,12 +170,27 @@ void newuser()
             saveToFile("\n");
             saveToFile(username);
             saveToFile(" ");
-            x = "Password";
+            x = "ID";
         }
         else
             cout<<" invalid username "<<endl;
     }
 
+
+    while (x=="ID"){
+        cout<<"enter your ID: ";
+        cin>> ID;
+        if (ID_check(ID))
+        {
+            cout<<"ID is correct "<<endl;
+            saveToFile(ID);
+            saveToFile(" ");
+            x="Password";
+        }
+        else
+            cout<<"wrong ID "<<endl;
+
+    }
 
     while (x == "Password")
     {
@@ -157,13 +207,14 @@ void newuser()
 
     while (x == "Email"){
         cout<<"create an email: ";
-        cin.getline(email,127);
+        cin >> email;
         if(Email_check(email))
         {
             cout <<"email created successfully"<<endl;
             saveToFile(email);
             saveToFile(" ");
             x = "Phone";
+            //maching_email( email );
         }
         else
             cout<<" invalid email"<<endl;
@@ -185,28 +236,8 @@ void newuser()
             cout<<"invalid phone number"<<endl;
         }
     }
-
-
-
-
-
-    /*login.open("login.text", ios::in );
-    while(!login.eof())
-    {
-        login.getline(username, 30, '|');
-        login.getline(password, 30, '|');
-        login.getline(newemail , 64);
-        if(strcmp(newemail, email)==0)
-        {
-            cout <<"This email already exists, try another one"<<endl;
-            break;
-        }else
-        {
-            login << ;
-        }
-    }*/
-
 }
+
 
 static std::string removeSpaces(std::string str)
 {
@@ -249,7 +280,7 @@ void change_pass(vector<string>n_m,vector<string>i_d,vector<string>p_s,vector<st
     cout << "Enter Old Password: ";
     cin >> pass;
     int size =i_d.size();
-    for (int i =0 ; i < size-1; i++){ 
+    for (int i =0 ; i < size-1; i++){
         if (i_d[i] == id && p_s[i] == pass ){
             cout << "Enter New Password => ";
             cin.ignore();
@@ -259,6 +290,7 @@ void change_pass(vector<string>n_m,vector<string>i_d,vector<string>p_s,vector<st
     }
     save_new_pass(n_m,i_d,p_s,g_m,n_o);
 }
+
 
 void save_new_pass(vector<string>n_m,vector<string>i_d,vector<string>p_s,vector<string>g_m,vector<string>n_o){
     ofstream save_file;
@@ -273,7 +305,6 @@ void save_new_pass(vector<string>n_m,vector<string>i_d,vector<string>p_s,vector<
 
     exit(0);
 }
-
 
 
 int CHECK_USRER_AND_PASS(string id ,string pass,vector<string>n_a,vector<string>i_d,vector<string>p_s,int len_c){
