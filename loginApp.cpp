@@ -14,6 +14,7 @@
 
 int main()
 {
+    saveToFile("\nName            |ID        |Password         |Email           |Phone number");
     cout<<"Welcome to our login App.";
     char choice = ' ';
     while (choice != '0')

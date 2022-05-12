@@ -247,7 +247,7 @@ void change_pass(vector<string>n_m,vector<string>i_d,vector<string>p_s,vector<st
     cout << "Enter Your Id: ";
     cin >> id;
     cout << "Enter Old Password: ";
-    cin >> pass;
+    getPassword_l(pass);
     int size =i_d.size();
     for (int i =0 ; i < size-1; i++){ 
         if (i_d[i] == id && p_s[i] == pass ){
@@ -255,9 +255,9 @@ void change_pass(vector<string>n_m,vector<string>i_d,vector<string>p_s,vector<st
             cin.ignore();
             getPassword(p_s[i]);
             strong_password_check(p_s[i]);
+            save_new_pass(n_m,i_d,p_s,g_m,n_o);
         }
     }
-    save_new_pass(n_m,i_d,p_s,g_m,n_o);
 }
 
 void save_new_pass(vector<string>n_m,vector<string>i_d,vector<string>p_s,vector<string>g_m,vector<string>n_o){
