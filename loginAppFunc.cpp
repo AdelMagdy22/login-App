@@ -81,7 +81,8 @@ void repeatPassword(string password, string& password2)
 
 void strong_password_check(string& password)
 {
-    const regex pattern("(?=.*[A-Z])(?=.*[\\d@$!%*#?&])(?=.*[A-Z\\d@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}");
+    const regex pattern("([A-Z]+[a-z]+[\\d]+[@$!%*#?&]*)|([A-Z]+[a-z]+[@$!%*#?&]+[\\d]*)|([A-Z]*[a-z]+[\\d]+[@$!%*#?&]+)|([A-Z]+[a-z]*[\\d]+[@$!%*#?&]+)|([A-Z]+[a-z]+[\\d]+[@$!%*#?&]+)[A-Za-z\\d@$!%*#?&]");
+    // const regex pattern("(?=.*[A-Z])(?=.*[\\d@$!%*#?&])(?=.*[A-Z\\d@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}");
     while(!regex_search(password,pattern))
     {
         cout<<"week password! please enter again: ";
@@ -113,16 +114,51 @@ bool username_check(string username)
     return regex_match(username,pattern);
 }
 
+bool ID_check(string ID)
+{
+    const regex pattern("2021[0-9]{4}");
+    return regex_match(ID,pattern);
+}
+
+/*void maching_email(string email )
+{
+    char username[30];
+    string ID;
+    string password = " ";
+    string email = " ";
+    string oldemail = " ";
+    char phone[11];
+
+    login.open("login.text", ios::in );
+    while(!login.eof())
+    {
+        login.getline(username, 30, " ");
+        login.getline(ID, 8, " ");
+        login.getline(password, 30, " ");
+        login.getline(oldemail , 127);
+        if(strcmp(oldemail, email)==0)
+        {
+            cout <<"This email already exists, try another one"<<endl;
+            break;
+        }else
+        {
+            saveToFile(email);
+            saveToFile(" ");
+            x = "Phone";
+        }
+    }
+}
+*/
 
 void newuser()
 {
-
+    saveToFile("\nName       ID              Password          Email                             Phone number");
     string x = "User name";
     char username[30];
+    string ID;
     string password = " ";
     string password2 = " ";
-    //char newemail[127];
-    char email[127];
+    string email = " ";
     char phone[11];
 
     while(x == "User name"){
@@ -134,13 +170,28 @@ void newuser()
             cout <<"username created successfully"<<endl;
             saveToFile("\n");
             saveToFile(username);
-            saveToFile(" ");
-            x = "Password";
+            saveToFile("       ");
+            x = "ID";
         }
         else
             cout<<" invalid username "<<endl;
     }
 
+
+    while (x=="ID"){
+        cout<<"enter your ID: ";
+        cin>> ID;
+        if (ID_check(ID))
+        {
+            cout<<"ID is correct "<<endl;
+            saveToFile(ID);
+            saveToFile("        ");
+            x="Password";
+        }
+        else
+            cout<<"wrong ID "<<endl;
+
+    }
 
     while (x == "Password")
     {
@@ -153,17 +204,18 @@ void newuser()
     }
 
     saveToFile(password);
-    saveToFile(" ");
+    saveToFile("      ");
 
     while (x == "Email"){
         cout<<"create an email: ";
-        cin.getline(email,127);
+        cin >> email;
         if(Email_check(email))
         {
             cout <<"email created successfully"<<endl;
             saveToFile(email);
-            saveToFile(" ");
+            saveToFile("          ");
             x = "Phone";
+            //maching_email( email );
         }
         else
             cout<<" invalid email"<<endl;
@@ -185,28 +237,8 @@ void newuser()
             cout<<"invalid phone number"<<endl;
         }
     }
-
-
-
-
-
-    /*login.open("login.text", ios::in );
-    while(!login.eof())
-    {
-        login.getline(username, 30, '|');
-        login.getline(password, 30, '|');
-        login.getline(newemail , 64);
-        if(strcmp(newemail, email)==0)
-        {
-            cout <<"This email already exists, try another one"<<endl;
-            break;
-        }else
-        {
-            login << ;
-        }
-    }*/
-
 }
+
 
 static std::string removeSpaces(std::string str)
 {
@@ -224,7 +256,7 @@ void login(vector<string>n_a,vector<string>i_d,vector<string>p_s,int len,int cou
     //cin >> PASSWORD;
 
     if (CHECK_USRER_AND_PASS(I_D,PASSWORD,n_a,i_d,p_s,len)){
-        int n = CHECK_USRER_AND_PASS(I_D,PASSWORD,n_a,i_d,p_s,len)-1;
+        n = CHECK_USRER_AND_PASS(I_D,PASSWORD,n_a,i_d,p_s,len)-1;
         cout << "Successful login, welcome "<<removeSpaces(n_a[n])<<endl;
     }
     else {
@@ -243,13 +275,17 @@ void login(vector<string>n_a,vector<string>i_d,vector<string>p_s,int len,int cou
 
 
 void change_pass(vector<string>n_m,vector<string>i_d,vector<string>p_s,vector<string>g_m,vector<string>n_o){
-    string id,pass,new_pass;
+    string id,pass = " ",new_pass;
     cout << "Enter Your Id: ";
     cin >> id;
     cout << "Enter Old Password: ";
+<<<<<<< HEAD
     getPassword_l(pass);
+=======
+    pass = hidePassword(pass);
+>>>>>>> origin
     int size =i_d.size();
-    for (int i =0 ; i < size-1; i++){ 
+    for (int i =0 ; i < size-1; i++){
         if (i_d[i] == id && p_s[i] == pass ){
             cout << "Enter New Password => ";
             cin.ignore();
@@ -259,6 +295,7 @@ void change_pass(vector<string>n_m,vector<string>i_d,vector<string>p_s,vector<st
         }
     }
 }
+
 
 void save_new_pass(vector<string>n_m,vector<string>i_d,vector<string>p_s,vector<string>g_m,vector<string>n_o){
     ofstream save_file;
@@ -275,10 +312,9 @@ void save_new_pass(vector<string>n_m,vector<string>i_d,vector<string>p_s,vector<
 }
 
 
-
 int CHECK_USRER_AND_PASS(string id ,string pass,vector<string>n_a,vector<string>i_d,vector<string>p_s,int len_c){
     int h = 0, size =i_d.size();
-    for (int i =0 ; i < size-1; i++){ // -------------------------------------------> for (int i =0 ; i < len_c; i++) ----NOT WORK
+    for (int i =0 ; i < size; i++){ // -------------------------------------------> for (int i =0 ; i < len_c; i++) ----NOT WORK
         if (i_d[i] == id && p_s[i] == pass ){
             h=i+1;
         }
