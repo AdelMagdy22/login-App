@@ -7,12 +7,17 @@
 // Teaching Assistant: Dr.Mohamed Al Ramly
 // Purpose:..........
 
-#include "loginAppFunc.h"
 
+
+
+#include "loginAppFunc.h"
+#include "loginAppFunc.cpp"
+
+#define FILE_PATH "login.text"
 
 int main()
 {
-    saveToFile("\nName            |ID        |Password         |Email           |Phone number");
+
     cout<<"Welcome to our login App.";
     char choice;
     while (true)
@@ -26,7 +31,7 @@ int main()
 
             //-------------------------NEED PUT IT IN FUNCTION-----------------------------
             string name,id, pass, gmail, number;
-            string file_path,word;
+            string word;
             int i = 0;
             vector<string>NA;
             vector<string>ID;
@@ -36,10 +41,10 @@ int main()
 
             fstream data_file;
 
-            cout << "Enter file Path (Ex: file.txt)\n>>> ";
-            cin >> file_path ;
+            // cout << "Enter file Path (Ex: file.txt)\n>>> ";
+            // cin >> FILE_PATH ;
 
-            data_file.open(file_path,ios::in);
+            data_file.open(FILE_PATH,ios::in);
 
             if(data_file.is_open()){
 
@@ -66,7 +71,6 @@ int main()
         //---------------------------------------------------------------------
 
             int count = 0;    //      PUT   count = 0    IN  function main menu
-            //string users[][2] = {{"20210206","12345"},{"20210202","1234"},{"20210204","123"}} ;
             int size = 0;   //*(&users + 1) - users;
             login(NA,ID,PASS,size,count);
 
@@ -75,7 +79,7 @@ int main()
 
             //-------------------------NEED PUT IT IN FUNCTION-----------------------------
             string name,id, pass, gmail, number;
-            string file_path,word;
+            string word;
             int i = 0;
             vector<string>NA;
             vector<string>ID;
@@ -85,10 +89,10 @@ int main()
 
             fstream data_file;
 
-            cout << "Enter file Path (Ex: file.txt)\n>>> ";
-            cin >> file_path ;
+            // cout << "Enter file Path (Ex: file.txt)\n>>> ";
+            // cin >> file_path ;
 
-            data_file.open(file_path,ios::in);
+            data_file.open(FILE_PATH,ios::in);
 
             if(data_file.is_open()){
 
@@ -111,7 +115,11 @@ int main()
                 }
                 data_file.close();
             }
-            else cout << "Faild Open The File, Try again...\n";
+            else {
+                cout << "Faild Open The File...\n";
+                exit(0);
+            }
+
         //---------------------------------------------------------------------
 
             change_pass(NA,ID,PASS,GM,NO);

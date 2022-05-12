@@ -1,10 +1,10 @@
 #include "loginAppFunc.h"
-
+#define FILE_PATH "login.text"
 
 void saveToFile(string data)
 {
     ofstream login;
-    login.open("login.text", ios::app);
+    login.open(FILE_PATH, ios::app);
     login << data;
     login.close();
 }
@@ -129,7 +129,7 @@ bool ID_check(string ID)
     string oldemail = " ";
     char phone[11];
 
-    login.open("login.text", ios::in );
+    login.open(FILE_PATH, ios::in );
     while(!login.eof())
     {
         login.getline(username, 30, " ");
@@ -152,7 +152,7 @@ bool ID_check(string ID)
 
 void newuser()
 {
-    saveToFile("\nName       ID              Password          Email                             Phone number");
+    //saveToFile("\n");
     string x = "User name";
     char username[30];
     string ID;
@@ -170,7 +170,7 @@ void newuser()
             cout <<"username created successfully"<<endl;
             saveToFile("\n");
             saveToFile(username);
-            saveToFile("       ");
+            saveToFile("|");
             x = "ID";
         }
         else
@@ -185,7 +185,7 @@ void newuser()
         {
             cout<<"ID is correct "<<endl;
             saveToFile(ID);
-            saveToFile("        ");
+            saveToFile("|");
             x="Password";
         }
         else
@@ -204,7 +204,7 @@ void newuser()
     }
 
     saveToFile(password);
-    saveToFile("      ");
+    saveToFile("|");
 
     while (x == "Email"){
         cout<<"create an email: ";
@@ -213,7 +213,7 @@ void newuser()
         {
             cout <<"email created successfully"<<endl;
             saveToFile(email);
-            saveToFile("          ");
+            saveToFile("|");
             x = "Phone";
             //maching_email( email );
         }
@@ -229,7 +229,7 @@ void newuser()
         {
             cout << "right phone number \n";
             saveToFile(phone);
-            saveToFile(" ");
+            saveToFile("|");
             x = " ";
         }
         else
@@ -279,27 +279,24 @@ void change_pass(vector<string>n_m,vector<string>i_d,vector<string>p_s,vector<st
     cout << "Enter Your Id: ";
     cin >> id;
     cout << "Enter Old Password: ";
-<<<<<<< HEAD
     getPassword_l(pass);
-=======
-    pass = hidePassword(pass);
->>>>>>> origin
     int size =i_d.size();
     for (int i =0 ; i < size-1; i++){
         if (i_d[i] == id && p_s[i] == pass ){
             cout << "Enter New Password => ";
             cin.ignore();
             getPassword(p_s[i]);
-            strong_password_check(p_s[i]);
+            //strong_password_check(p_s[i]);            When change
             save_new_pass(n_m,i_d,p_s,g_m,n_o);
         }
     }
+    cout << "Wrong Password!..."<< endl << "---------------------------\n";
 }
 
 
 void save_new_pass(vector<string>n_m,vector<string>i_d,vector<string>p_s,vector<string>g_m,vector<string>n_o){
     ofstream save_file;
-    save_file.open("login.text", ios::out);
+    save_file.open(FILE_PATH, ios::out);
     save_file << "Name" << '|'<< "ID" << '|'<< "PASSWORD" << '|'<< "Gmail" << '|' << "Number" << '\n';
     int size =i_d.size();
     for (int i =0 ; i < size-1; i++){ // -------------------------------------------> for (int i =0 ; i < len_c; i++) ----NOT WORK
