@@ -8,19 +8,19 @@
 // Purpose:..........
 
 #include "loginAppFunc.h"
-#include "loginAppFunc.cpp"
-
 
 
 int main()
 {
-    saveToFile("\nName            ID        Password         Email           Phone number");
     cout<<"Welcome to our login App.";
-    char choice = ' ';
-    while (choice != '0')
+    char choice;
+    while (true)
     {
         choice = displayMenu();
-        if (choice == '1'){newuser();}
+        if (choice == '1')
+        {
+            newuser();
+        }
         else if(choice == '2'){
 
             //-------------------------NEED PUT IT IN FUNCTION-----------------------------
@@ -123,5 +123,4 @@ int main()
             return 0;
         }
      }
-     return 0;
 }
