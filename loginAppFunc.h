@@ -15,16 +15,16 @@
 
 using namespace std;
 
+char displayMenu();
 void newuser();
 int CHECK_USRER_AND_PASS(string id ,string pass,vector<string>n_a,vector<string>i_d,vector<string>p_s,int len_c);
-char displayMenu();
 void saveToFile(string data);
 string hidePassword(string& password);
 void getPassword(string& password);
 void getPassword_l(string& password);
 void repeatPassword(string password, string& password2);
 void strong_password_check(string& password);
-void login(vector<string>n_a,vector<string>i_d,vector<string>p_s,int len,int count,string& password);
+void login(vector<string>n_a,vector<string>i_d,vector<string>p_s,int len,int count);
 void change_pass(vector<string>n_m,vector<string>i_d,vector<string>p_s,vector<string>g_m,vector<string>n_o);
 void save_new_pass(vector<string>n_m,vector<string>i_d,vector<string>p_s,vector<string>g_m,vector<string>n_o);
 bool Email_check(string email);
