@@ -14,6 +14,7 @@
 
 int main()
 {
+    saveToFile("\nName            ID        Password         Email           Phone number");
     cout<<"Welcome to our login App.";
     char choice = ' ';
     while (choice != '0')
@@ -40,7 +41,7 @@ int main()
             data_file.open(file_path,ios::in);
 
             if(data_file.is_open()){
-                
+
                 string line;
                 getline(data_file, line);
 
@@ -63,7 +64,7 @@ int main()
             else cout << "Faild Open The File, Try again...\n";
         //---------------------------------------------------------------------
 
-            int count = 0;    //      PUT   count = 0    IN  function main menu  
+            int count = 0;    //      PUT   count = 0    IN  function main menu
             //string users[][2] = {{"20210206","12345"},{"20210202","1234"},{"20210204","123"}} ;
             int size = 0;   //*(&users + 1) - users;
             login(NA,ID,PASS,size,count);
@@ -89,7 +90,7 @@ int main()
             data_file.open(file_path,ios::in);
 
             if(data_file.is_open()){
-                
+
                 string line;
                 getline(data_file, line);
 
@@ -113,9 +114,9 @@ int main()
         //---------------------------------------------------------------------
 
             change_pass(NA,ID,PASS,GM,NO);
-            
+
             }
-        
+
         else
         {
             cout << "Thanks for using our App. \n" << endl;
