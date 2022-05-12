@@ -10,6 +10,7 @@
 #include <sstream>
 #include <vector>
 #include <fstream>
+//#include <iomanip>
 
 
 using namespace std;
@@ -26,5 +27,11 @@ void strong_password_check(string& password);
 void login(vector<string>n_a,vector<string>i_d,vector<string>p_s,int len,int count,string& password);
 void change_pass(vector<string>n_m,vector<string>i_d,vector<string>p_s,vector<string>g_m,vector<string>n_o);
 void save_new_pass(vector<string>n_m,vector<string>i_d,vector<string>p_s,vector<string>g_m,vector<string>n_o);
+bool Email_check(string email);
+bool phone_check(string phone);
+bool username_check(string username);
+bool ID_check(string ID);
+
+
 
 #endif // LOGINAPPFUNCIONS_H_INCLUDED
