@@ -5,7 +5,7 @@
 // Author2 and ID and Group: Adel Magdy Abd El-Hay       20210190
 // Author3 and ID and Group: Roaa Talat Mohamed          20210138
 // Teaching Assistant: Dr.Mohamed Al Ramly
-// Purpose:..........
+// Purpose:..........@bd00Tarek4
 
 
 
@@ -13,7 +13,7 @@
 #include "loginAppFunc.h"
 #include "loginAppFunc.cpp"
 
-#define FILE_PATH "login.text"
+#define FILE_PATH "login.txt"
 
 int main()
 {

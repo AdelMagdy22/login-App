@@ -1,5 +1,5 @@
 #include "loginAppFunc.h"
-#define FILE_PATH "login.text"
+#define FILE_PATH "login.txt"
 
 void saveToFile(string data)
 {
@@ -202,8 +202,8 @@ void newuser()
 
         x = "Email";
     }
-
     saveToFile(password);
+    //saveToFile(encript(password));
     saveToFile("|");
 
     while (x == "Email"){
@@ -270,7 +270,6 @@ void login(vector<string>n_a,vector<string>i_d,vector<string>p_s,int len,int cou
         }
         login(n_a,i_d,p_s,len,count);
     }
-    exit(0);
 }
 
 
@@ -282,7 +281,7 @@ void change_pass(vector<string>n_m,vector<string>i_d,vector<string>p_s,vector<st
     getPassword_l(pass);
     int size =i_d.size();
     for (int i =0 ; i < size-1; i++){
-        if (i_d[i] == id && p_s[i] == pass ){
+        if (i_d[i] == id && decript(p_s[i]) == pass ){
             cout << "Enter New Password => ";
             cin.ignore();
             getPassword(p_s[i]);
@@ -317,4 +316,24 @@ int CHECK_USRER_AND_PASS(string id ,string pass,vector<string>n_a,vector<string>
         }
     }
     return h;
+}
+
+
+string encript(string& enc_password){
+    int size = enc_password.length();
+    char enc_pass[size];
+    for (int i =0 ; i< enc_password.length();i++){
+        enc_pass[i] =  (enc_password[i] - 3);
+    }
+    return enc_pass;
+}
+
+
+string decript(string& dec_password){
+    int size = dec_password.length();
+    char dec_pass[size];
+    for (int i =0 ; i< dec_password.length();i++){
+        dec_pass[i] =  (dec_password[i] + 3);
+    }
+    return dec_pass;
 }
