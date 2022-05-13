@@ -1,5 +1,45 @@
 #include "loginAppFunc.h"
-#define FILE_PATH "login.txt"
+#define FILE_PATH "login.text"
+
+void loodExsitingUsers(vector<string>& NA,vector<string>& ID,vector<string>& PASS,vector<string>& GM,vector<string>& NO)
+{
+    string name,id, pass, gmail, number;
+    string word;
+    int i = 0;
+
+    fstream data_file;
+
+
+    data_file.open(FILE_PATH,ios::in);
+
+    if(data_file.is_open())
+    {
+
+        string line;
+        getline(data_file, line);
+
+        while (!data_file.eof()) //while the end of file is NOT reached
+            {
+                getline(data_file,name,'|');
+                NA.push_back(name);
+                getline(data_file,id,'|');
+                ID.push_back(id);
+                getline(data_file,pass,'|');
+                PASS.push_back(pass);
+                getline(data_file,gmail,'|');
+                GM.push_back(gmail);
+                getline(data_file,number,'|');
+                NO.push_back(number);
+                i += 1;
+            }
+            data_file.close();
+    }
+    else
+    {
+        cout << "Faild Open The File...\n";
+        exit(0);
+    }
+}
 
 void saveToFile(string data)
 {
@@ -116,7 +156,7 @@ bool username_check(string username)
 
 bool ID_check(string ID)
 {
-    const regex pattern("2021[0-9]{4}");
+    const regex pattern("20[0-2]{2}[0-9]{4}");
     return regex_match(ID,pattern);
 }
 
@@ -161,7 +201,8 @@ void newuser()
     string email = " ";
     char phone[11];
 
-    while(x == "User name"){
+    while(x == "User name")
+    {
         cin.ignore();
         cout <<"create a username: ";
         cin.getline(username,30);
@@ -172,9 +213,10 @@ void newuser()
             saveToFile(username);
             saveToFile("|");
             x = "ID";
+        }else
+        {
+            cout<<"invalid username! press enter, please "<<endl;
         }
-        else
-            cout<<" invalid username "<<endl;
     }
 
 
@@ -190,20 +232,18 @@ void newuser()
         }
         else
             cout<<"wrong ID "<<endl;
-
     }
 
     while (x == "Password")
     {
-
         getPassword(password);
         strong_password_check(password);
         repeatPassword(password, password2);
 
         x = "Email";
     }
+
     saveToFile(password);
-    //saveToFile(encript(password));
     saveToFile("|");
 
     while (x == "Email"){
@@ -230,13 +270,14 @@ void newuser()
             cout << "right phone number \n";
             saveToFile(phone);
             saveToFile("|");
-            x = " ";
+            break;
         }
         else
         {
             cout<<"invalid phone number"<<endl;
         }
     }
+    exit(0);
 }
 
 
@@ -253,7 +294,6 @@ void login(vector<string>n_a,vector<string>i_d,vector<string>p_s,int len,int cou
     cin >> I_D;
     cout << "Enter Your Password: " ;
     getPassword_l(PASSWORD);
-    //cin >> PASSWORD;
 
     if (CHECK_USRER_AND_PASS(I_D,PASSWORD,n_a,i_d,p_s,len)){
         n = CHECK_USRER_AND_PASS(I_D,PASSWORD,n_a,i_d,p_s,len)-1;
@@ -281,11 +321,13 @@ void change_pass(vector<string>n_m,vector<string>i_d,vector<string>p_s,vector<st
     getPassword_l(pass);
     int size =i_d.size();
     for (int i =0 ; i < size-1; i++){
-        if (i_d[i] == id && decript(p_s[i]) == pass ){
+        if (i_d[i] == id && p_s[i] == pass ){
             cout << "Enter New Password => ";
             cin.ignore();
             getPassword(p_s[i]);
-            //strong_password_check(p_s[i]);            When change
+            strong_password_check(p_s[i]);            //When change
+            string password2 = " ";
+            repeatPassword(p_s[i], password2);
             save_new_pass(n_m,i_d,p_s,g_m,n_o);
         }
     }
@@ -302,8 +344,8 @@ void save_new_pass(vector<string>n_m,vector<string>i_d,vector<string>p_s,vector<
         save_file << n_m[i] << '|'<< i_d[i] << '|'<< p_s[i] << '|'<< g_m[i] << '|' << n_o[i] << '|';
     }
     save_file.close();
-    cout << "Your Password Changed!...\n";
-
+    cout << "Your Password Changed!...\n\n";
+    cout <<"Thanks for using our App. \n";
     exit(0);
 }
 
@@ -316,24 +358,4 @@ int CHECK_USRER_AND_PASS(string id ,string pass,vector<string>n_a,vector<string>
         }
     }
     return h;
-}
-
-
-string encript(string& enc_password){
-    int size = enc_password.length();
-    char enc_pass[size];
-    for (int i =0 ; i< enc_password.length();i++){
-        enc_pass[i] =  (enc_password[i] - 3);
-    }
-    return enc_pass;
-}
-
-
-string decript(string& dec_password){
-    int size = dec_password.length();
-    char dec_pass[size];
-    for (int i =0 ; i< dec_password.length();i++){
-        dec_pass[i] =  (dec_password[i] + 3);
-    }
-    return dec_pass;
 }
