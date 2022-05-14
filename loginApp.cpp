@@ -11,15 +11,11 @@
 
 
 #include "loginAppFunc.h"
-//#include "loginAppFunc.cpp"
+#include "loginAppFunc.cpp"
 
 #define FILE_PATH "login.text"
 
-vector<string> NA ;
-vector<string> ID ;
-vector<string> PASS ;
-vector<string> GM ;
-vector<string> NO ;
+
 
 int main()
 {
@@ -31,17 +27,17 @@ int main()
         choice = displayMenu();
         if (choice == '1')
         {
-            cout<<"Registering new user: \n\n";
+            cout<<"Registering new user: \n";
             newuser();
         }else if(choice == '2')
         {
-            cout<<"Log in: \n\n";
+            cout<<"Log in: \n";
             int count = 0;    //      PUT   count = 0    IN  function main menu
             int size = 0;   //*(&users + 1) - users;
             login(NA,ID,PASS,size,count);
         }else if (choice == '3')
         {
-            cout<<"Change password: \n\n";
+            cout<<"Change password: \n";
             change_pass(NA,ID,PASS,GM,NO);
         }else
         {
