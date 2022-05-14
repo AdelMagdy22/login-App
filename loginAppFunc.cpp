@@ -1,6 +1,7 @@
 #include "loginAppFunc.h"
 #define FILE_PATH "login.text"
 
+
 void loodExsitingUsers(vector<string>& NA,vector<string>& ID,vector<string>& PASS,vector<string>& GM,vector<string>& NO)
 {
     string name,id, pass, gmail, number;
@@ -36,7 +37,7 @@ void loodExsitingUsers(vector<string>& NA,vector<string>& ID,vector<string>& PAS
     }
     else
     {
-        cout << "Faild Open The File...\n";
+        cout << "\nFaild Open The File...\n";
         exit(0);
     }
 }
@@ -123,7 +124,7 @@ void strong_password_check(string& password)
 {
     const regex pattern("([A-Z]+[a-z]+[\\d]+[@$!%*#?&]*)|([A-Z]+[a-z]+[@$!%*#?&]+[\\d]*)|([A-Z]*[a-z]+[\\d]+[@$!%*#?&]+)|([A-Z]+[a-z]*[\\d]+[@$!%*#?&]+)|([A-Z]+[a-z]+[\\d]+[@$!%*#?&]+)[A-Za-z\\d@$!%*#?&]");
     // const regex pattern("(?=.*[A-Z])(?=.*[\\d@$!%*#?&])(?=.*[A-Z\\d@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}");
-    while(!regex_search(password,pattern))
+    while(!regex_match(password,pattern))
     {
         cout<<"week password! please enter again: ";
         password = hidePassword(password);
@@ -156,46 +157,74 @@ bool username_check(string username)
 
 bool ID_check(string ID)
 {
-    const regex pattern("20[0-2]{2}[0-9]{4}");
+    const regex pattern("20[0-2][0-9][0-9]{4}");
     return regex_match(ID,pattern);
 }
 
-/*void maching_email(string email )
+void validateUsername(vector<string>& NA, string& username)
 {
-    char username[30];
-    string ID;
-    string password = " ";
-    string email = " ";
-    string oldemail = " ";
-    char phone[11];
-
-    login.open(FILE_PATH, ios::in );
-    while(!login.eof())
-    {
-        login.getline(username, 30, " ");
-        login.getline(ID, 8, " ");
-        login.getline(password, 30, " ");
-        login.getline(oldemail , 127);
-        if(strcmp(oldemail, email)==0)
+    int size = NA.size();
+    for(int i = 0 ; i <= size - 1; i++  )
         {
-            cout <<"This email already exists, try another one"<<endl;
-            break;
-        }else
-        {
-            saveToFile(email);
-            saveToFile(" ");
-            x = "Phone";
+            while (true)
+            {
+                if(NA[i] == username)
+                {
+                    cout <<"This Username already exists, try another one!";
+                    getline(cin,username);
+                }else
+                {
+                    break;
+                }
+            }
         }
-    }
 }
-*/
+
+void validateID(vector<string>& ID, string& I_D )
+{
+    int size = ID.size();
+    for(int i = 0 ; i <= size - 1; i++  )
+        {
+            while (true)
+            {
+                if(ID[i] == I_D)
+                {
+                    cout <<"This ID already exists, try another one!";
+                    getline(cin,I_D);
+                }else
+                {
+                    break;
+                }
+            }
+        }
+}
+
+void validateEmail(vector<string>& GM, string& email )
+{
+    int size = GM.size();
+    for(int i = 0 ; i <= size - 1; i++  )
+        {
+            while (true)
+            {
+                if(GM[i] == email)
+                {
+                    cout <<"This email already exists, try another one!";
+                    getline(cin,email);
+                }else
+                {
+                    break;
+                }
+            }
+        }
+}
+
 
 void newuser()
 {
     //saveToFile("\n");
     string x = "User name";
-    char username[30];
-    string ID;
+    string username;
+    string I_D;
     string password = " ";
     string password2 = " ";
     string email = " ";
@@ -205,7 +234,8 @@ void newuser()
     {
         cin.ignore();
         cout <<"create a username: ";
-        cin.getline(username,30);
+        getline(cin, username);
+        validateUsername(NA, username);
         if(username_check(username))
         {
             cout <<"username created successfully"<<endl;
@@ -222,11 +252,12 @@ void newuser()
 
     while (x=="ID"){
         cout<<"enter your ID: ";
-        cin>> ID;
-        if (ID_check(ID))
+        cin>> I_D;
+        validateID(ID, I_D );
+        if (ID_check(I_D))
         {
             cout<<"ID is correct "<<endl;
-            saveToFile(ID);
+            saveToFile(I_D);
             saveToFile("|");
             x="Password";
         }
@@ -246,20 +277,22 @@ void newuser()
     saveToFile(password);
     saveToFile("|");
 
-    while (x == "Email"){
+    while (x == "Email")
+    {
         cout<<"create an email: ";
         cin >> email;
+        validateEmail(GM, email);
         if(Email_check(email))
         {
             cout <<"email created successfully"<<endl;
             saveToFile(email);
             saveToFile("|");
             x = "Phone";
-            //maching_email( email );
         }
         else
+        {
             cout<<" invalid email"<<endl;
-
+        }
     }
     while (x == "Phone"){
         cout <<"enter your phone number: ";
