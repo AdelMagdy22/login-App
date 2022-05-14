@@ -13,8 +13,13 @@
 #include <fstream>
 //#include <iomanip>
 
-
 using namespace std;
+
+vector<string> NA ;
+vector<string> ID ;
+vector<string> PASS ;
+vector<string> GM ;
+vector<string> NO ;
 
 void loodExsitingUsers(vector<string>& NA,vector<string>& ID,vector<string>& PASS,vector<string>& GM,vector<string>& NO );
 string hidePassword(string& password);
@@ -26,6 +31,9 @@ bool username_check(string username);
 bool ID_check(string ID);
 void saveToFile(string data);
 void newuser();
+void validateUsername(vector<string>& NA, string& username);
+void validateID(vector<string>& ID, string& I_D );
+void validateEmail(vector<string>g_m, const string& email);
 void getPassword(string& password);
 void getPassword_l(string& password);
 void repeatPassword(string password, string& password2);
