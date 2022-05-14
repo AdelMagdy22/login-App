@@ -202,7 +202,7 @@ void newuser()
 
         x = "Email";
     }
-    saveToFile(password);
+    saveToFile(encript(password));
     //saveToFile(encript(password));
     saveToFile("|");
 
@@ -281,7 +281,7 @@ void change_pass(vector<string>n_m,vector<string>i_d,vector<string>p_s,vector<st
     getPassword_l(pass);
     int size =i_d.size();
     for (int i =0 ; i < size-1; i++){
-        if (i_d[i] == id && decript(p_s[i]) == pass ){
+        if (i_d[i] == id && p_s[i] == pass ){
             cout << "Enter New Password => ";
             cin.ignore();
             getPassword(p_s[i]);
@@ -311,7 +311,7 @@ void save_new_pass(vector<string>n_m,vector<string>i_d,vector<string>p_s,vector<
 int CHECK_USRER_AND_PASS(string id ,string pass,vector<string>n_a,vector<string>i_d,vector<string>p_s,int len_c){
     int h = 0, size =i_d.size();
     for (int i =0 ; i < size; i++){ // -------------------------------------------> for (int i =0 ; i < len_c; i++) ----NOT WORK
-        if (i_d[i] == id && p_s[i] == pass ){
+        if (i_d[i] == id && decript(p_s[i]) == pass ){
             h=i+1;
         }
     }
