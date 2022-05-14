@@ -11,7 +11,7 @@
 
 
 #include "loginAppFunc.h"
-#include "loginAppFunc.cpp"
+//#include "loginAppFunc.cpp"
 
 #define FILE_PATH "login.text"
 
