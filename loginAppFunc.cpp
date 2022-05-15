@@ -312,7 +312,7 @@ void newuser()
         x = "Email";
     }
 
-    saveToFile(password);
+    saveToFile(railFence(password,5,"encrypt"));
     saveToFile("|");
 
     while (x == "Email")
@@ -407,7 +407,7 @@ void change_pass(vector<string>n_m,vector<string>i_d,vector<string>p_s,vector<st
     int size =i_d.size();
     for (int i =0 ; i < size-1; i++)
     {
-        if (i_d[i] == id && p_s[i] == pass )
+        if (i_d[i] == id && (railFence(p_s[i],5,"decript")) == pass )
         {
             cout << "Enter New Password => ";
             cin.ignore();
@@ -444,10 +444,82 @@ int CHECK_USRER_AND_PASS(string id,string pass,vector<string>n_a,vector<string>i
     int h = 0, size =i_d.size();
     for (int i =0 ; i < size; i++)  
     {
-        if (i_d[i] == id && p_s[i] == pass )
+        if (i_d[i] == id && (railFence(p_s[i],5,"decript")) == pass )
         {
             h=i+1;
         }
     }
     return h;
+}
+
+
+string railFence(string text, int base, string answer)
+{
+    vector<vector<string>> vectors{};
+    vector<string> tempVector{};
+    string dash{""};
+    int textLength = text.length();
+    for (int i = 0; i < textLength; i++)
+    {
+        tempVector.push_back(dash);
+    }
+    for (int i = 0; i < base; i++)
+    {
+        vectors.push_back(tempVector);
+    }
+
+    int counter{0};
+    int neg{1};
+    string value;
+    if (answer == "encrypt")
+    {
+        for (int i = 0; i < textLength; i++)
+        {
+            vectors[counter][i] = text[i];
+            counter += 1 * neg;
+            neg = (counter == base - 1 || !counter) ? neg * -1 : neg;
+        }
+        int textIndex = 0;
+        for (int i = 0; i < vectors.size(); i++)
+        {
+            for (int j = 0; j < vectors[i].size(); j++)
+            {
+                if (vectors[i][j] != dash)
+                {
+                    value += vectors[i][j];
+                    textIndex += 1;
+                }
+            }
+        }
+    }
+    else
+    {
+        for (int i = 0; i < textLength; i++)
+        {
+            vectors[counter][i] = text[i];
+            counter += 1 * neg;
+            neg = (counter == base - 1 || !counter) ? neg * -1 : neg;
+        }
+        int textIndex = 0;
+        for (int i = 0; i < vectors.size(); i++)
+        {
+            for (int j = 0; j < vectors[i].size(); j++)
+            {
+                if (vectors[i][j] != dash)
+                {
+                    vectors[i][j] = text[textIndex];
+                    textIndex += 1;
+                }
+            }
+        }
+        counter = 0;
+        neg = 1;
+        for (int i = 0; i < textLength; i++)
+        {
+            value += vectors[counter][i];
+            counter += 1 * neg;
+            neg = (counter == base - 1 || !counter) ? neg * -1 : neg;
+        }
+    }
+    return value;
 }
