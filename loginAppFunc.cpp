@@ -299,7 +299,7 @@ void newuser()
         x = "Email";
     }
 
-    saveToFile(railFence(password,3,"encrypt"));
+    saveToFile(railFence(password,5,"encrypt"));
     saveToFile("|");
 
     while (x == "Email")
@@ -327,7 +327,7 @@ void newuser()
         {
             cout << "right phone number \n";
             saveToFile(phone);
-            saveToFile("|");
+            saveToFile("|\n");
             break;
         }
         else
@@ -379,7 +379,7 @@ void change_pass(vector<string>n_m,vector<string>i_d,vector<string>p_s,vector<st
     getPassword_l(pass);
     int size =i_d.size();
     for (int i =0 ; i < size-1; i++){
-        if (i_d[i] == id && railFence(p_s[i],3,"decript") == pass ){
+        if (i_d[i] == id && railFence(p_s[i],5,"decript") == pass ){
             cout << "Enter New Password => ";
             cin.ignore();
             getPassword(p_s[i]);
@@ -411,31 +411,13 @@ void save_new_pass(vector<string>n_m,vector<string>i_d,vector<string>p_s,vector<
 int CHECK_USRER_AND_PASS(string id ,string pass,vector<string>n_a,vector<string>i_d,vector<string>p_s,int len_c){
     int h = 0, size =i_d.size();
     for (int i =0 ; i < size; i++){ // -------------------------------------------> for (int i =0 ; i < len_c; i++) ----NOT WORK
-        if (i_d[i] == id && railFence(p_s[i],3,"decript") == pass ){
+        if (i_d[i] == id && (railFence(p_s[i],5,"decript")) == pass ){
             h=i+1;
         }
     }
     return h;
 }
 
-string encript(string& password){
-    int size = password.length();
-    char enc_pass[size];
-    for (int i =0 ; i< password.length();i++){
-        enc_pass[i] =  (password[i] - 3);
-    }
-    return enc_pass;
-}
-
-
-string decript(string& password){
-    int size = password.length();
-    char dec_pass[size];
-    for (int i =0 ; i< password.length();i++){
-        dec_pass[i] =  (password[i] + 3);
-    }
-    return dec_pass;
-}
 
 
 string railFence(string text, int base, string answer)

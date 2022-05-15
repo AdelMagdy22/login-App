@@ -7,15 +7,10 @@
 // Teaching Assistant: Dr.Mohamed Al Ramly
 // Purpose:..........
 
-
-
-
 #include "loginAppFunc.h"
 #include "loginAppFunc.cpp"
 
 #define FILE_PATH "login.text"
-
-
 
 int main()
 {
