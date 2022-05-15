@@ -22,8 +22,6 @@ vector<string> GM ;
 vector<string> NO ;
 
 string railFence(string text, int base, string answer);
-string encript(string& enc_password);
-string decript(string& dec_password);
 string hidePassword(string& password);
 char displayMenu();
 int CHECK_USRER_AND_PASS(string id ,string pass,vector<string>n_a,vector<string>i_d,vector<string>p_s,int len_c);
