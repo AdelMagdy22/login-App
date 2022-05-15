@@ -21,6 +21,7 @@ vector<string> PASS ;
 vector<string> GM ;
 vector<string> NO ;
 
+string railFence(string text, int base, string answer);
 void loodExsitingUsers(vector<string>& NA,vector<string>& ID,vector<string>& PASS,vector<string>& GM,vector<string>& NO );
 string hidePassword(string& password);
 char displayMenu();
