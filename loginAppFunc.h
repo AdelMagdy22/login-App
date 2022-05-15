@@ -2,6 +2,7 @@
 #define LOGINAPPFUNCIONS_H_INCLUDED
 #define FILE_PATH "login.text"
 
+#include <Windows.h>
 #include <string.h>
 #include <conio.h>
 #include <regex>
@@ -11,18 +12,25 @@
 #include <sstream>
 #include <vector>
 #include <fstream>
+#include <ctime>
 //#include <iomanip>
 
 using namespace std;
-
 vector<string> NA ;
 vector<string> ID ;
 vector<string> PASS ;
 vector<string> GM ;
 vector<string> NO ;
 
+
+
+const int ConnectNormal = 0;
+const int ConnectSSLAuto = 1;
+const int ConnectSTARTTLS = 2;
+const int ConnectDirectSSL = 3;
+const int ConnectTryTLS = 4;
+
 string railFence(string text, int base, string answer);
-void loodExsitingUsers(vector<string>& NA,vector<string>& ID,vector<string>& PASS,vector<string>& GM,vector<string>& NO );
 string hidePassword(string& password);
 char displayMenu();
 int CHECK_USRER_AND_PASS(string id ,string pass,vector<string>n_a,vector<string>i_d,vector<string>p_s,int len_c);
@@ -30,6 +38,7 @@ bool Email_check(string email);
 bool phone_check(string phone);
 bool username_check(string username);
 bool ID_check(string ID);
+void loodExsitingUsers(vector<string>& NA,vector<string>& ID,vector<string>& PASS,vector<string>& GM,vector<string>& NO );
 void saveToFile(string data);
 void newuser();
 bool validateUsername(vector<string>& NA, string& username);
